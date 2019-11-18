@@ -1,0 +1,104 @@
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="{{path('home')}}" class="standard-logo" ><img src="{{ asset('assets/img/logo_csp.jpg') }}" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="style-5">
+
+						<ul>
+							<li><a href="{{path('home')}}"><div><i class="icon-home2"></i>Accueil</div></a></li>
+							<!-- <li ><a href="http://www.collegesaintpaulhem.fr/"><div><i class="icon-briefcase"></i>Site du collège</div></a></li> -->
+                            
+                            {% if app.user %}
+                                
+                            <li ><a href="#"><div><i class="icon-book"></i>School-Web</div></a></li>
+							<li ><a href="{{path('communication')}}"><div><i class="icon-comments-alt"></i>Communication</div></a></li>
+                            
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                
+							<li ><a href="#"><div><i class="icon-eye-open"></i>Supervision</div></a></li>
+							<li><a href="#"><div><i class="icon-wrench"></i>Administration</div></a>
+								<ul>
+                                    <li><a href="{{path('compte_liste')}}"><div>Comptes</div></a></li>
+									<li><a href="{{path('admin_liste')}}"><div>Matériel</div></a></li>
+									<li><a href="{{path('machine_creer')}}"><div>Ajouter Machine</div></a></li>
+									<li><a href="{{path('peripherique_creer')}}"><div>Ajouter Periphérique</div></a></li>
+									<li><a href="#"><div>Liste (autres)</div></a>
+										<ul>
+                                            <li><a href="{{path('categorie')}}"><div>Catégorie</div></a></li>
+											<li><a href="{{path('couleur')}}"><div>Couleur</div></a></li>
+											<li><a href="{{path('emplacement')}}"><div>Emplacement</div></a></li>
+											<li><a href="{{path('etat')}}"><div>Etat</div></a></li>
+											<li><a href="{{path('marque')}}"><div>Marque</div></a></li>
+											<li><a href="{{path('modele')}}"><div>Modèle</div></a></li>
+											<li><a href="{{path('systeme')}}"><div>Système</div></a></li>
+											<li><a href="{{path('version')}}"><div>Version</div></a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+                            {% endif %}
+                            {% if app.user %}
+                            <li><a href="#"><div><i class="icon-user"></i>Mon compte</div></a>
+								<ul>
+                                    <li><a href="{{path('compte_edition')}}"><div>Modifier Nom</div></a></li>
+									<li><a href="{{path('compte_password')}}"><div>Modifier mot de passe</div></a></li>
+								</ul>
+							</li>
+                            {% endif %}
+						</ul>
+
+						<!-- Login
+						============================================= -->
+						<div id="top-account">
+
+                        {% if app.user %}
+                            
+                        <a title="Se déconnecter" href="{{path('compte_deconnexion')}}" ><i style="color: green !important"class="icon-off" ></i></a>
+
+                        {% else %}
+
+                        <a title="Se connecter" href="{{path('compte_connexion')}}" ><i style="color: red"class="icon-off"></i></a>
+                        {% endif %}
+                               
+
+						</div><!-- #top-search end -->
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+
+</body>

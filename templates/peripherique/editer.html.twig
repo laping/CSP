@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition d'un périphérique{% endblock title %}
+
+{% block body %}
+    
+<div class="container">
+    <h1 class="text-center">Editer le périphérique : {{peripherique.id}} </h1>
+
+    {{form_start(form)}}
+
+    
+      
+       {{form_widget(form)}}
+    
+    <div class="row edit-btn" style="justify-content: space-evenly">
+        <button type="submit" class="btn btn-primary">Enregistrer</button><a type="button" href =" {{path('peripherique_supprimer', {'id': peripherique.id})}}" class="btn btn-danger" >Supprimer</a>
+    </div>
+    {{form_end(form)}}
+</div>
+
+{% endblock body %}

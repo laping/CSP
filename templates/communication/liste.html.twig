@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Communication{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <div>
+        <h1>Communication</h1>
+        <a href="{{path('creer_message')}}" class="btn btn-success btn-lg">Ecrire un nouveau message</a>
+        
+        {#-------------------Permet d'afficher un bouton si connecté en Admin---------------#}
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{path('archives')}}" class="btn btn-warning btn-lg">Consulter les archives</a>
+        {% endif %}
+        {#----------------------------------------------------------------------------------#}
+    </div>
+
+    {% for message in messages %}
+        
+    <div class="container message mt-2" {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %} style="background-color: gold" {% endif %}>
+        
+        {% if is_granted('ROLE_ADMIN') %}
+            
+        <a href="{{path('admin_editer_message', {id: message.id})}}" class="btn btn-success" style="float: right">Editer</a>
+
+        {% endif %}
+        <h3>{{message.titre}}</h3> 
+        
+        <p>{{message.contenu|raw}}</p>
+        <div>                  
+            <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom|default('Utilisateur supprimé')}} </span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+        </div>
+        <a href="{{path('afficher_message', {id: message.id})}}" class="btn btn-primary">En savoir plus ({{message.commentaires|length}} commentaire(s))</a>  
+    </div>  
+
+    {% endfor %}  
+
+    <div class="navigation mt-2 pagination" >
+        {{ knp_pagination_render(messages) }}
+    </div>
+
+</div>
+{% endblock %}

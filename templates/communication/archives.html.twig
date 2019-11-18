@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Archives{% endblock title %}
+
+{% block body %}
+<div class="container text-center">
+    <div>
+        <h1>Archives</h1>
+        <a href="{{path('communication')}}" class="btn btn-warning btn-lg">Consulter les messages publics</a>
+    </div>
+
+    {% for message in messages %}
+        
+    <div class="container message mt-2">
+
+        {% if is_granted('ROLE_ADMIN') %}
+        
+        <a href="{{path('admin_message_supprimer', {id: message.id})}}" class="btn btn-danger" style="float: right">Supprimer</a>
+
+        {% endif %}
+
+        <h3>{{message.titre}}</h3> 
+        <p>{{message.contenu|raw}}</p>
+
+        <div>                  
+            <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom}}</span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+        </div>
+        <a href="{{path('afficher_message_archives', {id: message.id})}}" class="btn btn-primary">En savoir plus</a>  
+    </div>  
+
+    {% endfor %}  
+    <div class="navigation mt-2 pagination ">
+        {{ knp_pagination_render(messages) }}
+    </div>
+</div>
+{% endblock body %}

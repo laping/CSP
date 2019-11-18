@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-gradient">
+
+  <a href="http://www.collegesaintpaulhem.fr/" class="navbar-brand"><img src="{{ asset('assets/img/logo_csp.jpg') }}" alt=""></a> 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div style="float:right" class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.collegesaintpaulhem.fr/"><i class="fas fa-school mr-2"></i>Site du collège</a>
+      </li>
+      {% if app.user %}
+      
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-pencil-ruler mr-2"></i>School-Web</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('communication')}}"><i class="fas fa-comments mr-2"></i>Communication</a>
+      </li>
+      
+      {% endif %}
+      
+      {% if is_granted('ROLE_ADMIN') %}
+      <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-eye mr-2"></i>Supervision</a>
+        </li>
+      <li class="nav-item dropdown active">  
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tools mr-2"></i>Administration <span class="sr-only">(current)</span></a>
+        <div class="dropdown-menu submenu bg-gradient-reverse dropright" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{path('compte_liste')}}">Liste des comptes</a>
+          <a class="dropdown-item" href="{{path('admin_liste')}}">Liste du matériel</a>
+          <a class="dropdown-item" href="{{path('machine_creer')}}">Ajouter Machine</a>
+          <a class="dropdown-item" href="{{path('peripherique_creer')}}">Ajouter Periphérique</a>
+
+          {# --------------- Dropdown des listes pour le matériel ---------------#}
+          <a class="nav-link dropdown-toggle dropdown-item" href="" id="liste_materiel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Liste (autres) </a>
+          <ul class="dropdown-menu bg-gradient-reverse" aria-labelledby="liste_materiel">
+            <a class="dropdown-item" href="{{path('categorie')}}">Categorie</a>
+            <a class="dropdown-item" href="{{path('couleur')}}">Couleur</a>
+            <a class="dropdown-item" href="{{path('emplacement')}}">Emplacement</a>
+            <a class="dropdown-item" href="{{path('etat')}}">Etat</a>
+            <a class="dropdown-item" href="{{path('marque')}}">Marque</a>
+            <a class="dropdown-item" href="{{path('modele')}}">Modèle</a>
+            <a class="dropdown-item" href="{{path('systeme')}}">Système</a>
+            <a class="dropdown-item" href="{{path('version')}}">Version</a>
+          </ul>
+        </div>
+        {% endif %}
+      </li>
+      {# -----------------------------Profil utilisateur-------------------------------------#}
+      {% if app.user %}
+      <li class="nav-item">
+        <div class="btn-group submenu mr-2 dropdown">
+          <button type="button" class="btn btn-warning btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profil
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{path('compte_edition')}}">Modifier nom</a>
+            <a class="dropdown-item" href="{{path('compte_password')}}">Changer mot de passe</a>
+          </div>
+        </div>
+      </li>
+      {% endif %}
+      {#-------------------------------------------------------------------------------------#}
+      <li class="nav-item">
+        {% if app.user %}
+        <a type="button" onclick="window.location.href = '/compte/deconnexion';" class="btn btn-danger btn-lg">Déconnexion</a>
+        {% else %}
+        <a type="button" onclick="window.location.href = '/compte/connexion';" class="btn btn-warning btn-lg">Connexion</a>
+        {% endif %}
+      </li>
+    </ul>
+    {# <form  target="_blank" method="get" action="http://www.google.fr/search">
+      <div id="google">
+        <div id="logo_google">
+          <img src="{{ asset('assets/img/logo_google.png') }}" alt="">
+        </div>
+        <table id="google-tab" border="0" align="center" cellpadding="0">
+          <tr>
+            <td id="google_search">
+              <input type="text"   name="q" size="30" style="color:#808080;"
+              maxlength="255" value="Recherche Google"
+              onfocus="if(this.value==this.defaultValue)this.value=''; this.style.color='black';" onblur="if(this.value=='')this.value=this.defaultValue; "/>
+              <input type="submit" value="Rechercher" size="15" />
+              <input type="hidden" name="sitesearch" value="" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form> #}
+  </div>
+</nav>
+
+{% for label,messages in app.flashes %}
+
+<div class="container">
+  <div class=" text-center alert alert-{{ label }}">
+      {% for message in messages %}
+      <p>{{message | raw}}</p>
+      {% endfor %}
+  </div>
+</div>
+      
+{% endfor %}

@@ -1,0 +1,326 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+
+<div class="container">
+    {#-----------------------------------Boutons permettant de passer d'un tableau à un autre------------------------------#}
+<ul id="pills" class="nav nav-pills nav-justified">
+    <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#tab-pc">Liste PC fixes</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-portable">Liste Portables</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-VP">Liste VP</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-autres">Liste Autres</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-periph">Liste Periphériques</a></li>
+</ul>
+    {#-------------------------------------Tableau des PC fixes------------------------------------------#}
+</div>
+<div class="tab-content mt-5">
+    <div id="tab-pc" class="tab-pane  active">
+        <div class="table-responsive">
+            <table id="table_pc" class="table-bordered" >
+                <thead>
+                    <tr>
+                        <th>Machine</th>
+                        <th>Categorie</th>
+                        <th>Marque</th>
+                        <th>Modèle</th>
+                        <th>IP</th>
+                        <th>Serial</th>
+                        <th>Emplacement</th>
+                        <th>Système</th>
+                        <th>Etat</th>
+                        <th>Commentaire</th>
+                        <th>Clavier</th>
+                        <th>Souris</th>
+                        <th>Ecran</th>
+                        <th>Enceintes</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for machine in machines if 'PC' in machine.categorie.nom %}
+
+                    <tr style="background-color:{{machine.Etat.couleur.rgb|default('')}}">
+                        <td><a href="{{path('machine_editer', {'id': machine.id}) }}" >{{machine.id}}</a></td>
+                        <td>{{machine.Categorie.nom|default('')}}</td>
+                        <td>{{machine.Modele.Marque.nom|default('')}}</td>
+                        <td>{{machine.Modele.nom|default('')}}</td>
+                        <td>{{machine.IP}}</td>
+                        <td>{{machine.serial}}</td>
+                        <td>{{machine.Emplacement.nom|default('')}}</td>
+                        <td>{{machine.Version.systeme.nom|default('')}} {{machine.Version.nom|default('')}}</td>
+                        <td>{{machine.Etat.nom|default('')}}</td>
+                        <td>{{machine.Commentaire}}</td>
+
+                        {# ---------PERIPHERIQUES-----------#}
+                        {# Clavier #}
+                        <td>
+                            {% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Clavier"%}
+
+                                <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+                        {# Souris #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Souris"%}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+                        {# Ecran #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Ecran"%}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+                        {# Enceintes #}
+                        <td>{% for peripherique in machine.peripheriques if peripherique.categorie.nom|capitalize == "Enceintes" %}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="tab-portable" class="tab-pane fade">
+        <div class="table-responsive">
+            <table id="table_portable" class="table-bordered" >
+                <thead>
+                    <tr>
+                        <th>Machine</th>
+                        <th>Categorie</th>
+                        <th>Marque</th>
+                        <th>Modèle</th>
+                        <th>IP</th>
+                        <th>Serial</th>
+                        <th>Emplacement</th>
+                        <th>Système</th>
+                        <th>Etat</th>
+                        <th>Commentaire</th>
+                        <th>Clavier</th>
+                        <th>Souris</th>
+                        <th>Enceintes</th>
+                        <th>Chargeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for machine in machines if 'Portable' in machine.categorie.nom %}
+
+                    <tr style="background-color:{{machine.Etat.couleur.rgb|default('')}}">
+                        <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
+                        <td>{{machine.Categorie.nom|default('')}}</td>
+                        <td>{{machine.Modele.Marque.nom|default('')}}</td>
+                        <td>{{machine.Modele.nom|default('')}}</td>
+                        <td>{{machine.IP}}</td>
+                        <td>{{machine.serial}}</td>
+                        <td>{{machine.Emplacement.nom|default('')}}</td>
+                        <td>{{machine.Version.systeme.nom|default('')}} {{machine.Version.nom|default('')}}</td>
+                        <td>{{machine.Etat.nom|default('')}}</td>
+                        <td>{{machine.Commentaire}}</td>
+
+                        {# ---------PERIPHERIQUES-----------#}
+
+                        {# Clavier #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Clavier"%}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+
+                        {# Souris #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Souris" %}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+
+                        {# Enceintes #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Enceintes" %}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</p>
+
+                            {% endfor %}
+                        </td>
+
+                        {# Chargeur #}
+                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Chargeur" %}
+
+                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                            {% endfor %}
+                        </td>
+
+                    </tr>
+                        
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="tab-VP" class="tab-pane fade">
+        <div class="container">
+            <div class="table-responsive">
+                <table id="table_VP" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Machine</th>
+                            <th>Categorie</th>
+                            <th>Marque</th>
+                            <th>Modèle</th>
+                            <th>IP</th>
+                            <th>Serial</th>
+                            <th>Emplacement</th>
+                            <th>Etat</th>
+                            <th>Commentaire</th>
+                            <th>Télécommande</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {% for machine in machines if 'VP' in machine.categorie.nom%}
+
+                        <tr style="background-color:  {{machine.Etat.couleur.rgb|default('')}}">
+                            <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
+                            <td>{{machine.Categorie.nom|default('')}}</td>
+                            <td>{{machine.Modele.Marque.nom|default('')}}</td>
+                            <td>{{machine.Modele.nom|default('')}}</td>
+                            <td>{{machine.IP}}</td>
+                            <td>{{machine.serial}}</td>
+                            <td>{{machine.Emplacement.nom|default('')}}</td>
+                            <td>{{machine.Etat.nom|default('')}}</td>
+                            <td>{{machine.Commentaire}}</td>
+
+                            {# ---------PERIPHERIQUES-----------#}
+
+                            {# Télécommande #}
+                            <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Télécommande" %}
+
+                                    <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
+
+                                {% endfor %}
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+    <div id="tab-autres" class="tab-pane fade">
+        <div class="container">
+            <div class="table-responsive">
+                <table id="table_autres" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Serial</th>
+                            <th>Etat</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {% for machine in machines if ('PC' not in machine.categorie.nom) and ('Portable' not in machine.categorie.nom) and ('VP' not in machine.categorie.nom)%}
+                        <tr style="background-color: {{machine.etat.couleur.rgb|default('')}}">
+                            <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
+                            <td>{{machine.serial}}</td>
+                            <td>{{machine.Etat.nom|default('')}}</td>
+                            
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-periph" class="tab-pane fade">
+        <div class="container">
+            <div class="table-responsive">
+                <table id="table_periph" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Categorie</th>
+                            <th>Machine associée</th>
+                            <th>Serial</th>
+                            <th>Emplacement</th>
+                            <th>Etat</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {% for periph in periphs %}
+                        <tr style="background-color: {{periph.etat.couleur.rgb|default('')}}">
+                            <td><a href="{{path('peripherique_editer', {'id': periph.id}) }}">{{periph.id}}</a></td>
+                            <td>{{periph.Categorie.nom|default('')}}</td>
+                            <td><a href="{{path('machine_editer', {'id': periph.machine.id|default('Aucun(e)')}) }}" style="background-color: {{periph.machine.etat.couleur.rgb|default('')}}">{{periph.machine.id|default('')}}</a></td>
+                            <td>{{periph.serial}}</td>
+                            <td>{{periph.machine.Emplacement.nom|default('')}}</td>
+                            <td>{{periph.Etat.nom|default('')}}</td>
+                            
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+<script>
+    $(document).ready( function () {
+    $('#table_pc').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    });
+} );
+
+$(document).ready( function () {
+    $('#table_portable').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    });
+} );
+
+$(document).ready( function () {
+    $('#table_VP').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    });
+} );
+
+$(document).ready( function () {
+    $('#table_autres').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    });
+} );
+
+$(document).ready( function () {
+    $('#table_periph').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    });
+} );
+</script>
+{% endblock body %}

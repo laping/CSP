@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editer un message{% endblock %}
+
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+    
+<div class="container mt-5">
+
+    <a href="{{path('admin_message_supprimer', {id: message.id})}}" class="btn btn-danger" style="float: right">Supprimer</a>
+
+    <h1 class="text-center">Editer le message</h1>
+    
+    {{form_start(form)}}
+    {{form_widget(form)}}
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </div>
+    {{form_end(form)}}
+    
+</div>
+{% endif %}
+
+{% endblock body %}

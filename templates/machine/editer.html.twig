@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition d'une machine{% endblock title %}
+
+{% block body %}
+    
+<div class="container">
+    <h1 class="text-center">Editer la machine : {{machine.id}} </h1>
+
+    {{form_start(form)}}
+
+    <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    {{form_row(form.id)}}
+                    {{form_row(form.serial)}}
+                    {{form_row(form.commentaire)}}
+                    {{form_row(form.ip)}}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    {{form_row(form.categorie)}}
+                    {{form_row(form.etat)}}
+                    {{form_row(form.modele)}}
+                    {{form_row(form.emplacement)}}
+                    {{form_row(form.version)}}
+               </div>
+            </div>
+        </div>
+      
+       {{form_widget(form)}}
+    
+    <div class="row edit-btn" style="justify-content: space-evenly">
+        <button type="submit" class="btn btn-primary">Enregistrer</button><a type="button" href =" {{path('machine_supprimer', {'id': machine.id})}}" class="btn btn-danger" >Supprimer</a>
+    </div>
+    {{form_end(form)}}
+</div>
+
+{% endblock body %}

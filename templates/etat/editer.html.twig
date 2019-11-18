@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition d'un état{% endblock title %}
+
+{% block body %}
+    
+<div class="container">
+    <h1 class="text-center">Editer l'état' : {{etat.nom}} </h1>
+
+    {{form_start(form)}}
+
+    
+      
+       {{form_widget(form)}}
+    
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    {{form_end(form)}}
+</div>
+
+{% endblock body %}

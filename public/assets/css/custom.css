@@ -1,0 +1,174 @@
+
+
+#navbarColor01 li a{
+	font-size: 170%
+}
+
+#navbarColor01 li button{
+	font-size: 170%
+}
+
+#navbarColor01 a{
+	color: white
+}
+
+#nav{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%
+}
+
+.bg-gradient{
+	background: linear-gradient(#2f68c4, #377ced) !important;
+}
+
+.bg-gradient-reverse{
+	background: linear-gradient( #377ced, #2f68c4) !important;
+
+}
+
+#logo-CSP{
+	size: 50%
+	
+}
+
+#logo_google{
+	display: flex;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 0.5);
+	
+}
+
+#logo_google img{
+	width: 20%;
+	height: 50%;
+}
+
+#google{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+}
+
+
+#google_search{
+	display: flex;
+	flex-direction: column;
+	border: none !important;
+	
+}
+
+.submenu a{
+	font-size: 100% !important
+}
+
+
+.submenu a:hover, .submenu a:focus {
+	background-color: #24519c !important;
+}
+
+
+#pills{
+	background-color: #d2eefc;
+}
+
+#pills li{
+	border: solid 1px black
+}
+
+#pills a{
+	color: black
+}
+
+
+#pills  .active  {
+	background-color: #2ba6e3;
+	border: none
+}
+
+table a{
+	color: black !important;
+}
+
+.table-bordered th,td{
+	border: 1px solid black !important;
+	color: black !important;
+}
+
+.table-bordered th,td {
+	text-align: center
+}
+
+.message{
+	background-color: #d2eefc;
+	border: 1px solid blue;
+	border-radius: 5px;
+	padding: 15px 15px 15px 15px;
+}
+
+#commentaire-liste>div:nth-of-type(odd) {
+	background: #e0e0e0;
+  }
+
+#commentaire-liste{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+
+}
+
+.commentaire-bloc{
+	display: flex;
+	flex-direction: column;
+}
+
+.bg-commentaire{
+	background-color: rgba(250, 87, 193, 0.3);
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 15px 15px 0px 15px
+}
+
+.btn-message{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.pagination{
+	display: flex;
+	justify-content: center;
+}
+
+
+#top-account i{
+	font-size: 28px;
+	
+}
+
+#top-account a{
+	color: #444;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+
+}
+
+
+@media (min-width:992px ) and (max-width: 1190px){
+
+	#logo img{
+		height: 70px;
+	}
+
+	#header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img { 
+		height: 50px; 
+	}
+
+	#top-account{
+		margin-left:0px;
+	}
+
+	
+}

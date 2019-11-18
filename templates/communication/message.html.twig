@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Afficher un message{% endblock title %}
+
+{% block body %}
+
+
+{% if message.Isarchived == true and not is_granted('ROLE_ADMIN') %}
+
+<h1 class="text-center mt-5"> Vous n'avez pas accès à ce message car il est archivé !</h1>
+
+{% else %}
+    
+
+<div class="container">
+        {% if is_granted('ROLE_ADMIN') %} {#---Connexion en admin obligatoire en tant que condition---#}
+
+    {#-------------------------------------Afficher le bouton Archiver ou Désarchiver en fonction de l'état du message------------------------#}
+    <div class="text-center">
+        {% if message.IsArchived == true %}
+        <a href="{{path('desarchiver_message', {id: message.id})}}" class="btn btn-danger btn-lg my-3">Désarchiver le message</a>
+        {% else %}
+        <a href="{{path('archiver_message', {id: message.id})}}" class="btn btn-danger btn-lg my-3">Archiver le message</a>
+        {% endif %}
+    </div>
+    {#----------------------------------------------------------------------------------------------------------------------------------------#}
+
+    {% endif %}
+
+    <div class="row" style="justify-content:space-between">
+        {% if message.IsArchived == false %}
+        <div class="col-6" style="display: flex; justify-content:flex-start">
+            <a href="{{path('communication')}}" class="btn btn-success btn-lg">Retour</a>
+        </div>
+        {% if message.auteur.id|default('Utilisateur supprimé') == app.user.id %}
+            
+        <div class="col-6" style="display: flex; justify-content:flex-end">
+            <a href="{{path('editer_message', {id: message.id})}}" class="btn btn-success btn-lg">Editer le message</a>
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <a href="{{path('archives')}}" class="btn btn-success btn-lg">Retour</a>
+        {% endif %}
+    </div>
+</div>
+
+{#----------------------------------Affichage du message-------------------------------------#}
+
+<div class="container message mt-2 text-center">
+    <div class="">
+       <h3>{{message.titre}}</h3> 
+    </div>
+    <p>{{message.contenu|raw}}</p>
+    <div>                  
+        <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom|default('Utilisateur supprimé')}}</span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+    </div>  
+</div>
+
+{#------------------------------Affichage des commentaires-----------------------------------#}
+    
+<div id="commentaire-liste" class="container">
+    {% for commentaire in message.commentaires %}
+    
+    <div class="bg-commentaire mt-2 commentaire-bloc" {% if commentaire.auteur.roles[0]|default('') == 'ROLE_ADMIN' %} style="background-color: gold" {% endif %} >
+        <div>
+                {% if commentaire.auteur.id|default('Utilisateur supprimé') == app.user.id  %}
+
+                <a href="{{path('editer_commentaire', {id: commentaire.id})}}" class="btn btn-success" style="float: right">Editer</a>
+                
+                {% else %}
+
+                <a href="{{path('admin_editer_commentaire', {id: commentaire.id})}}" class="btn btn-success" style="float: right">Editer</a>
+
+                {% endif %}
+
+            <p>  {{commentaire.contenu|raw}} </p>
+        </div>
+        <div>
+            <p>Ecrit par <span style="font-weight:bold"> {{commentaire.auteur.nom|default('Utilisateur supprimé')}}</span>, le {{commentaire.dateCreation|date("d/m/Y H:i" )}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{#-------------------------Formulaire de création de commentaire----------------------------#}
+
+<div class="container mt-5">
+    <h1 class="text-center">Nouveau commentaire</h1>
+
+    {{form_start(form)}}
+    {{form_widget(form)}}
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </div>
+    {{form_end(form)}}
+    
+</div>
+
+{% endif %}
+{% endblock body %}
