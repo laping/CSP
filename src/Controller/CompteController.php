@@ -49,7 +49,7 @@ class CompteController extends AbstractController
 
     /**
      * @Route("/compte/edition", name="compte_edition")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function editionCompte(Request $request, ObjectManager $manager)
     {
@@ -79,7 +79,7 @@ class CompteController extends AbstractController
 
     /**
      * @Route("/compte/password", name="compte_password")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function editionPassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {

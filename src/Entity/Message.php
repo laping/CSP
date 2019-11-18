@@ -17,7 +17,7 @@ class Message
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank(message="Ce message n'existe pas !")
+     * @Assert\NotBlank(message="Ce message n'existe pas !", allowNull=True)
      */
     private $id;
 
@@ -51,6 +51,13 @@ class Message
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $IsArchived;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Personnel", inversedBy="messages")
+     */
+    private $Signature;
+
+    
 
     /**
      * @ORM\PrePersist
@@ -162,6 +169,19 @@ class Message
 
         return $this;
     }
+
+    public function getSignature(): ?Personnel
+    {
+        return $this->Signature;
+    }
+
+    public function setSignature(?Personnel $Signature): self
+    {
+        $this->Signature = $Signature;
+
+        return $this;
+    }
+
 
    
 }

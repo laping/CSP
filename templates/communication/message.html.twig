@@ -47,13 +47,22 @@
 
 {#----------------------------------Affichage du message-------------------------------------#}
 
-<div class="container message mt-2 text-center">
+<div class="container message mt-2 text-center" {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %} style="background-color: gold" {% endif %}>
     <div class="">
        <h3>{{message.titre}}</h3> 
     </div>
     <p>{{message.contenu|raw}}</p>
     <div>                  
-        <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom|default('Utilisateur supprimé')}}</span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+        <p>Ecrit par <span style="font-weight:bold">
+
+            {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %}
+                {{message.auteur.nom|default('Utilisateur supprimé')}}
+            {% else %} 
+                {{message.signature.nom|default('Utilisateur supprimé')}}
+            {% endif %}
+            
+            </span>, le {{message.dateCreation|date("d/m/Y H:i" )}}
+        </p>
     </div>  
 </div>
 
@@ -77,7 +86,16 @@
             <p>  {{commentaire.contenu|raw}} </p>
         </div>
         <div>
-            <p>Ecrit par <span style="font-weight:bold"> {{commentaire.auteur.nom|default('Utilisateur supprimé')}}</span>, le {{commentaire.dateCreation|date("d/m/Y H:i" )}}</p>
+            <p>Ecrit par <span style="font-weight:bold">
+
+                {% if commentaire.auteur.roles[0]|default('') == 'ROLE_ADMIN' %}
+                    {{commentaire.auteur.nom|default('Utilisateur supprimé')}}
+                {% else %} 
+                    {{commentaire.signature.nom|default('Utilisateur supprimé')}}
+                {% endif %}
+                
+                </span>, le {{commentaire.dateCreation|date("d/m/Y H:i" )}}
+            </p>
         </div>
     </div>
     {% endfor %}

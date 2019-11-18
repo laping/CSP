@@ -59,7 +59,7 @@
 								</ul>
 							</li>
                             {% endif %}
-                            {% if app.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="#"><div><i class="icon-user"></i>Mon compte</div></a>
 								<ul>
                                     <li><a href="{{path('compte_edition')}}"><div>Modifier Nom</div></a></li>

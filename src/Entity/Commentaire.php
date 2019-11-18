@@ -40,6 +40,11 @@ class Commentaire
      */
     private $auteur;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Personnel", inversedBy="commentaires")
+     */
+    private $signature;
+
   
 
     public function getId(): ?int
@@ -92,6 +97,18 @@ class Commentaire
     public function setAuteur(?Utilisateur $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getSignature(): ?Personnel
+    {
+        return $this->signature;
+    }
+
+    public function setSignature(?Personnel $signature): self
+    {
+        $this->signature = $signature;
 
         return $this;
     }

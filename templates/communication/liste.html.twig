@@ -28,7 +28,14 @@
         
         <p>{{message.contenu|raw}}</p>
         <div>                  
-            <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom|default('Utilisateur supprimé')}} </span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+            <p>Ecrit par <span style="font-weight:bold">
+                {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %}
+                    {{message.auteur.nom|default('Utilisateur supprimé')}}
+                {% else %} 
+                    {{message.signature.nom|default('Utilisateur supprimé')}}
+                {% endif %}
+                </span>, le {{message.dateCreation|date("d/m/Y H:i" )}}
+            </p>
         </div>
         <a href="{{path('afficher_message', {id: message.id})}}" class="btn btn-primary">En savoir plus ({{message.commentaires|length}} commentaire(s))</a>  
     </div>  

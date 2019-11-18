@@ -11,7 +11,7 @@
 
     {% for message in messages %}
         
-    <div class="container message mt-2">
+    <div class="container message mt-2" {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %} style="background-color: gold" {% endif %}>
 
         {% if is_granted('ROLE_ADMIN') %}
         
@@ -23,7 +23,14 @@
         <p>{{message.contenu|raw}}</p>
 
         <div>                  
-            <p>Ecrit par <span style="font-weight:bold"> {{message.auteur.nom}}</span>, le {{message.dateCreation|date("d/m/Y H:i" )}}</p>
+            <p>Ecrit par <span style="font-weight:bold"> 
+                {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %}
+                    {{message.auteur.nom|default('Utilisateur supprimé')}}
+                {% else %} 
+                    {{message.signature.nom|default('Utilisateur supprimé')}}
+                {% endif %}
+            </span>, le {{message.dateCreation|date("d/m/Y H:i" )}}
+            </p>
         </div>
         <a href="{{path('afficher_message_archives', {id: message.id})}}" class="btn btn-primary">En savoir plus</a>  
     </div>  
