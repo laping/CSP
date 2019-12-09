@@ -10,7 +10,7 @@
     <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-portable">Liste Portables</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-VP">Liste VP</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-autres">Liste Autres</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-periph">Liste Periphériques</a></li>
+ 
 </ul>
     {#-------------------------------------Tableau des PC fixes------------------------------------------#}
 </div>
@@ -51,36 +51,7 @@
                         <td>{{machine.Etat.nom|default('')}}</td>
                         <td>{{machine.Commentaire}}</td>
 
-                        {# ---------PERIPHERIQUES-----------#}
-                        {# Clavier #}
-                        <td>
-                            {% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Clavier"%}
-
-                                <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
-                        {# Souris #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Souris"%}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
-                        {# Ecran #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Ecran"%}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
-                        {# Enceintes #}
-                        <td>{% for peripherique in machine.peripheriques if peripherique.categorie.nom|capitalize == "Enceintes" %}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
+                        
                     </tr>
 
                     {% endfor %}
@@ -124,40 +95,6 @@
                         <td>{{machine.Etat.nom|default('')}}</td>
                         <td>{{machine.Commentaire}}</td>
 
-                        
-                        {# ---------PERIPHERIQUES-----------#}
-
-                        {# Clavier #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Clavier"%}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
-
-                        {# Souris #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Souris" %}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
-
-                        {# Enceintes #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Enceintes" %}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</p>
-
-                            {% endfor %}
-                        </td>
-
-                        {# Chargeur #}
-                        <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Chargeur" %}
-
-                            <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                            {% endfor %}
-                        </td>
 
                     </tr>
                     
@@ -199,15 +136,7 @@
                             <td>{{machine.Etat.nom|default('')}}</td>
                             <td>{{machine.Commentaire}}</td>
 
-                            {# ---------PERIPHERIQUES-----------#}
-
-                            {# Télécommande #}
-                            <td>{% for peripherique in machine.peripheriques if  peripherique.categorie.nom|capitalize == "Télécommande" %}
-
-                                    <a href="{{path('peripherique_editer', {'id': peripherique.id}) }}" style="background-color: {{peripherique.etat.couleur.rgb|default('')}}">{{peripherique.id}}</a>
-
-                                {% endfor %}
-                            </td>
+                           
                         </tr>
 
                         {% endfor %}
@@ -247,39 +176,6 @@
         </div>
     </div>
 
-    <div id="tab-periph" class="tab-pane fade">
-        <div class="container">
-            <div class="table-responsive">
-                <table id="table_periph" class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Categorie</th>
-                            <th>Machine associée</th>
-                            <th>Serial</th>
-                            <th>Emplacement</th>
-                            <th>Etat</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody >
-                        {% for periph in periphs %}
-                        <tr style="background-color: {{periph.etat.couleur.rgb|default('')}}">
-                            <td><a href="{{path('peripherique_editer', {'id': periph.id}) }}">{{periph.id}}</a></td>
-                            <td>{{periph.Categorie.nom|default('')}}</td>
-                            <td><a href="{{path('machine_editer', {'id': periph.machine.id|default('Aucun(e)')}) }}" style="background-color: {{periph.machine.etat.couleur.rgb|default('')}}">{{periph.machine.id|default('')}}</a></td>
-                            <td>{{periph.serial}}</td>
-                            <td>{{periph.machine.Emplacement.nom|default('')}}</td>
-                            <td>{{periph.Etat.nom|default('')}}</td>
-                            
-                        </tr>
-                        
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -319,12 +215,6 @@ $(document).ready( function () {
     });
 } );
 
-$(document).ready( function () {
-    $('#table_periph').DataTable({
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-        }
-    });
-} );
+
 </script>
 {% endblock body %}

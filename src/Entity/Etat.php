@@ -33,10 +33,7 @@ class Etat
      */
     private $machine;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Peripherique", mappedBy="etat")
-     */
-    private $peripherique;
+  
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Couleur", inversedBy="etat")
@@ -97,36 +94,7 @@ class Etat
         return $this;
     }
 
-    /**
-     * @return Collection|peripherique[]
-     */
-    public function getPeripherique(): Collection
-    {
-        return $this->peripherique;
-    }
-
-    public function addPeripherique(peripherique $peripherique): self
-    {
-        if (!$this->peripherique->contains($peripherique)) {
-            $this->peripherique[] = $peripherique;
-            $peripherique->setEtat($this);
-        }
-
-        return $this;
-    }
-
-    public function removePeripherique(peripherique $peripherique): self
-    {
-        if ($this->peripherique->contains($peripherique)) {
-            $this->peripherique->removeElement($peripherique);
-            // set the owning side to null (unless already changed)
-            if ($peripherique->getEtat() === $this) {
-                $peripherique->setEtat(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getCouleur(): ?Couleur
     {

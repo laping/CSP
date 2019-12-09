@@ -33,10 +33,6 @@ class Machine
      */
     private $commentaire;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Peripherique", mappedBy="machine")
-     */
-    private $peripheriques;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="machine")
@@ -116,36 +112,7 @@ class Machine
         return $this;
     }
 
-    /**
-     * @return Collection|Peripherique[]
-     */
-    public function getPeripheriques(): Collection
-    {
-        return $this->peripheriques;
-    }
-
-    public function addPeripherique(Peripherique $peripherique): self
-    {
-        if (!$this->peripheriques->contains($peripherique)) {
-            $this->peripheriques[] = $peripherique;
-            $peripherique->setMachine($this);
-        }
-
-        return $this;
-    }
-
-    public function removePeripherique(Peripherique $peripherique): self
-    {
-        if ($this->peripheriques->contains($peripherique)) {
-            $this->peripheriques->removeElement($peripherique);
-            // set the owning side to null (unless already changed)
-            if ($peripherique->getMachine() === $this) {
-                $peripherique->setMachine(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     public function getCategorie(): ?Categorie
     {

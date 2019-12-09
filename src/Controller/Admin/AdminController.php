@@ -15,14 +15,14 @@ class AdminController extends AbstractController
      * @Route("/admin/liste", name="admin_liste")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(MachineRepository $repo_machine, PeripheriqueRepository $repo_periph)
+    public function index(MachineRepository $repo_machine)
     {
         $machines= $repo_machine->findAll(); /* Permet d'obtenir un tableau rassemblant toutes les machines */
-        $periphs= $repo_periph->findAll(); /* Permet d'obtenir un tableau rassemblant tous les périphériques */
+        
 
         return $this->render('admin/liste.html.twig', [
-            'machines' => $machines,
-            'periphs'=> $periphs
+            'machines' => $machines
+            
         ]);
     }
 

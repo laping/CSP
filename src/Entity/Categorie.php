@@ -33,10 +33,6 @@ class Categorie
      */
     private $machine;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Peripherique", mappedBy="categorie")
-     */
-    private $peripherique;
 
     public function __construct()
     {
@@ -92,35 +88,6 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection|peripherique[]
-     */
-    public function getPeripherique(): Collection
-    {
-        return $this->peripherique;
-    }
-
-    public function addPeripherique(peripherique $peripherique): self
-    {
-        if (!$this->peripherique->contains($peripherique)) {
-            $this->peripherique[] = $peripherique;
-            $peripherique->setCategorie($this);
-        }
-
-        return $this;
-    }
-
-    public function removePeripherique(peripherique $peripherique): self
-    {
-        if ($this->peripherique->contains($peripherique)) {
-            $this->peripherique->removeElement($peripherique);
-            // set the owning side to null (unless already changed)
-            if ($peripherique->getCategorie() === $this) {
-                $peripherique->setCategorie(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
 }
