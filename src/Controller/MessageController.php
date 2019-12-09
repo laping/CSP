@@ -24,6 +24,8 @@ class MessageController extends AbstractController
     {
         $message = new Message();
 
+        $ip = $request->getClientIp();
+
         $form = $this->createForm(MessageType::class, $message); /* Création du formulaire de nouveau message */
 
         $form->handleRequest($request);
@@ -33,6 +35,7 @@ class MessageController extends AbstractController
             $message->setDateCreation(new \DateTime()); /* Remplit le champ 'dateCreation' avec la date actuelle */
             $message->setIsArchived(false); /* Passe le booléen relatif à l'archivage à 0 */
             $message->setAuteur($this->getUser()); /* Définit l'utilisateur connecté en tant qu'auteur */
+            $message->setIp($ip);
             
             $manager->persist($message);
             $manager->flush(); /* Valide et effectue les changements dans la base de données */
@@ -46,7 +49,9 @@ class MessageController extends AbstractController
         }
 
         return $this->render('message/creer.html.twig',[ /* Renvoie vers une vue avec le formulaire créé en paramètre */
-            'form'=> $form->CreateView()
+            'form'=> $form->CreateView(),
+            'ip' => $ip
+            
         ]);
     }
 
@@ -58,6 +63,9 @@ class MessageController extends AbstractController
     {
         $message= $repo_mess->find($id); /* Accède au message qui a l'ID choisi parmi la liste de tous les messages */
 
+        $ip = $request->getClientIp();
+       
+
         $form = $this->createForm(MessageType::class, $message); /*Création du formulaire d'édition de message */
 
         $form->handleRequest($request);
@@ -65,6 +73,8 @@ class MessageController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){ /* Validation du formulaire après soumission par l'utilisateur */
 
             $message->setDateCreation(new \DateTime()); /* Remplit le champ 'dateCreation' avec la date actuelle */
+            $message->setIp($ip);
+            
             
             $manager->persist($message);
             $manager->flush();

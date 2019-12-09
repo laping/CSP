@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody >
-                    {% for machine in machines if 'PC' in machine.categorie.nom %}
+                    {% for machine in machines if 'PC' in machine.categorie.nom|default('') %}
 
                     <tr style="background-color:{{machine.Etat.couleur.rgb|default('')}}">
                         <td><a href="{{path('machine_editer', {'id': machine.id}) }}" >{{machine.id}}</a></td>
@@ -110,7 +110,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for machine in machines if 'Portable' in machine.categorie.nom %}
+                    {% for machine in machines if 'Portable' in machine.categorie.nom|default('') %}
 
                     <tr style="background-color:{{machine.Etat.couleur.rgb|default('')}}">
                         <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
@@ -124,6 +124,7 @@
                         <td>{{machine.Etat.nom|default('')}}</td>
                         <td>{{machine.Commentaire}}</td>
 
+                        
                         {# ---------PERIPHERIQUES-----------#}
 
                         {# Clavier #}
@@ -159,6 +160,7 @@
                         </td>
 
                     </tr>
+                    
                         
                     {% endfor %}
                 </tbody>
@@ -184,7 +186,7 @@
                         </tr>
                     </thead>
                     <tbody >
-                        {% for machine in machines if 'VP' in machine.categorie.nom%}
+                        {% for machine in machines if 'VP' in machine.categorie.nom|default('') %}
 
                         <tr style="background-color:  {{machine.Etat.couleur.rgb|default('')}}">
                             <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
@@ -222,15 +224,17 @@
                     <thead>
                         <tr>
                             <th>Nom</th>
+                            <th>Catégorie</th>
                             <th>Serial</th>
                             <th>Etat</th>
                             
                         </tr>
                     </thead>
                     <tbody >
-                        {% for machine in machines if ('PC' not in machine.categorie.nom) and ('Portable' not in machine.categorie.nom) and ('VP' not in machine.categorie.nom)%}
+                        {% for machine in machines if ('PC' not in machine.categorie.nom|default('')) and ('Portable' not in machine.categorie.nom|default('')) and ('VP' not in machine.categorie.nom|default(''))%}
                         <tr style="background-color: {{machine.etat.couleur.rgb|default('')}}">
                             <td><a href="{{path('machine_editer', {'id': machine.id}) }}">{{machine.id}}</a></td>
+                            <td>{{machine.categorie.nom|default('')}}</td>
                             <td>{{machine.serial}}</td>
                             <td>{{machine.Etat.nom|default('')}}</td>
                             

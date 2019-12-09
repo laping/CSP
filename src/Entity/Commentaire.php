@@ -45,6 +45,11 @@ class Commentaire
      */
     private $signature;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ip;
+
   
 
     public function getId(): ?int
@@ -109,6 +114,18 @@ class Commentaire
     public function setSignature(?Personnel $signature): self
     {
         $this->signature = $signature;
+
+        return $this;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setIp(?string $ip): self
+    {
+        $this->ip = $ip;
 
         return $this;
     }

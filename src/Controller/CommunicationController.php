@@ -60,10 +60,14 @@ class CommunicationController extends AbstractController
      */
     public function afficherMessage($id, MessageRepository $repo_mess, CommentaireRepository $repo_comm, Request $request, ObjectManager $manager)
     {
+        
         $message= $repo_mess->find($id);
         $commentaires= $repo_comm->findAll(); /* Récupère un message spécifique (via l'Id) dans la table concernée ainsi que les commentaires liés */
-
+        
         $commentaire = new Commentaire();
+
+        $ip = $request->getClientIp();
+
         $form = $this->createForm(CommentaireType::class, $commentaire); /* Crée le formulaire Symfony de création de commentaire */
 
         $form->handleRequest($request);
@@ -73,6 +77,7 @@ class CommunicationController extends AbstractController
             $commentaire->setDateCreation(new \DateTime()); /* Ajout automatique de la date/heure de création du commentaire*/
             $commentaire->setMessage($message); /* Permet de lier le commentaire crée au message affiché*/
             $commentaire->setAuteur($this->getUser()); /* Définit l'utilisateur connecté en tant qu'auteur */
+            $commentaire->setIp($ip);
             
             $manager->persist($commentaire);
             $manager->flush();
