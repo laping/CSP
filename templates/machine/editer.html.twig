@@ -7,7 +7,7 @@
 <div class="container">
     <h1 class="text-center">Editer la machine : {{machine.id}} </h1>
 
-    {{form_start(form)}}
+    {{form_start(form, {attr:{novalidate: 'novalidate'}})}}
 
     <div class="row">
             <div class="col">
@@ -26,6 +26,16 @@
                     {{form_row(form.emplacement)}}
                     {{form_row(form.version)}}
                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    {{form_row(form.clavier)}}
+                    {{form_row(form.souris)}}
+                    {{form_row(form.ecran)}}
+                    {{form_row(form.enceintes)}}
+                    {{form_row(form.chargeur)}}
+                    {{form_row(form.telecommande)}}
+                </div>
             </div>
         </div>
       

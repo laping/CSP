@@ -43,7 +43,9 @@ class MachineType extends ApplicationType
                 'placeholder' => "Entrez un commentaire"
             ]
         ])
-        ->add('ip', TextType::class,$this->getConfiguration("IP", "Entrez une IP"))
+        ->add('ip', TextType::class,$this->getConfiguration("IP", "Entrez une IP"), [
+            'required' => false
+        ])
         ->add('categorie', EntityType::class, [
             // Choix de l'entité dans laquelle chercher
             'class' => Categorie::class,
@@ -117,6 +119,12 @@ class MachineType extends ApplicationType
             // 'multiple' => true,
             // 'expanded' => true,
         ])
+        ->add('clavier')
+        ->add('souris')
+        ->add('ecran')
+        ->add('enceintes')
+        ->add('chargeur')
+        ->add('telecommande')
         ;
     }
 

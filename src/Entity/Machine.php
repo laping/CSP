@@ -20,6 +20,7 @@ class Machine
     /**
      * @ORM\Id()
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank(message="Champ requis")
      */
     private $id;
 
@@ -70,6 +71,36 @@ class Machine
      *  @ORM\JoinColumn(name="version_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
     private $version;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $clavier;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $souris;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enceintes;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $chargeur;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $telecommande;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $ecran;
 
     public function __construct()
     {
@@ -183,6 +214,78 @@ class Machine
     public function setVersion(?Version $version): self
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getClavier(): ?bool
+    {
+        return $this->clavier;
+    }
+
+    public function setClavier(?bool $clavier): self
+    {
+        $this->clavier = $clavier;
+
+        return $this;
+    }
+
+    public function getSouris(): ?bool
+    {
+        return $this->souris;
+    }
+
+    public function setSouris(?bool $souris): self
+    {
+        $this->souris = $souris;
+
+        return $this;
+    }
+
+    public function getEnceintes(): ?bool
+    {
+        return $this->enceintes;
+    }
+
+    public function setEnceintes(?bool $enceintes): self
+    {
+        $this->enceintes = $enceintes;
+
+        return $this;
+    }
+
+    public function getChargeur(): ?bool
+    {
+        return $this->chargeur;
+    }
+
+    public function setChargeur(?bool $chargeur): self
+    {
+        $this->chargeur = $chargeur;
+
+        return $this;
+    }
+
+    public function getTelecommande(): ?bool
+    {
+        return $this->telecommande;
+    }
+
+    public function setTelecommande(?bool $telecommande): self
+    {
+        $this->telecommande = $telecommande;
+
+        return $this;
+    }
+
+    public function getEcran(): ?bool
+    {
+        return $this->ecran;
+    }
+
+    public function setEcran(?bool $ecran): self
+    {
+        $this->ecran = $ecran;
 
         return $this;
     }

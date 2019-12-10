@@ -38,6 +38,7 @@
                 </thead>
                 <tbody >
                     {% for machine in machines if 'PC' in machine.categorie.nom|default('') %}
+                    
 
                     <tr style="background-color:{{machine.Etat.couleur.rgb|default('')}}">
                         <td><a href="{{path('machine_editer', {'id': machine.id}) }}" >{{machine.id}}</a></td>
@@ -50,7 +51,12 @@
                         <td>{{machine.Version.systeme.nom|default('')}} {{machine.Version.nom|default('')}}</td>
                         <td>{{machine.Etat.nom|default('')}}</td>
                         <td>{{machine.Commentaire}}</td>
-
+                        <td>{% if machine.clavier %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.souris %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.ecran %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.enceintes %}OUI{% else %}NON{% endif %}</td>
+                        
+                        
                         
                     </tr>
 
