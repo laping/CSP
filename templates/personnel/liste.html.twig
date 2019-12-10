@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste du personnel{% endblock title %}
+
+{% block body %}
+
+
+<div class="container mt-5">
+    <div class="text-center">
+        <a href="{{path('personnel_inscription')}}" class="btn btn-success">Nouveau personnel</a>
+    </div>
+    <div class="table-responsive">
+        <table id="table_personnel" class="table-bordered table-striped">
+            <thead>
+                <tr style="background-color: #a1d3ed" >
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Modifier nom</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+
+            {% for personnel in personnels %}
+
+                
+            <tr>
+                <td>{{personnel.id}}</td>
+                <td>{{personnel.nom}}</td>
+                <td><a href="{{path('personnel_edition', {'id': personnel.id}) }}"><i class="fas fa-wrench"></i></a></td>
+                <td><a type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_suppr" data-whatever="{{ personnel.id }}">
+                    <i class="fas fa-user-times"></i></a></td>
+            </tr>
+            
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_suppr" tabindex="-1" role="dialog" aria-labelledby="modal_supprLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_supprLabel">Supprimer un élément</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                Voulez vous vraiment supprimer cet élément ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <a id="remove" href="" type="button" class="btn btn-default" >Confirmer</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#table_personnel').DataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    } );
+</script>
+<script>
+    $('#modal_suppr').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id= button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+       
+        document.getElementById('remove').href = id + '/supprimer';
+      })
+</script>
+
+
+{% endblock body %}

@@ -42,6 +42,7 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Personnel", inversedBy="commentaires")
+     * @ORM\JoinColumn(name="signature_id", referencedColumnName="id",onDelete="SET NULL",nullable=true)
      */
     private $signature;
 

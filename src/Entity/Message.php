@@ -54,6 +54,7 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Personnel", inversedBy="messages")
+     * @ORM\JoinColumn(name="signature_id", referencedColumnName="id",onDelete="SET NULL",nullable=true)
      */
     private $Signature;
 
