@@ -100,6 +100,10 @@
                         <td>{{machine.Version.systeme.nom|default('')}} {{machine.Version.nom|default('')}}</td>
                         <td>{{machine.Etat.nom|default('')}}</td>
                         <td>{{machine.Commentaire}}</td>
+                        <td>{% if machine.clavier %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.souris %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.enceintes %}OUI{% else %}NON{% endif %}</td>
+                        <td>{% if machine.chargeur %}OUI{% else %}NON{% endif %}</td>
 
 
                     </tr>
@@ -141,8 +145,8 @@
                             <td>{{machine.Emplacement.nom|default('')}}</td>
                             <td>{{machine.Etat.nom|default('')}}</td>
                             <td>{{machine.Commentaire}}</td>
+                            <td>{% if machine.telecommande %}OUI{% else %}NON{% endif %}</td>
 
-                           
                         </tr>
 
                         {% endfor %}
