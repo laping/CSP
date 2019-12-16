@@ -21,6 +21,8 @@ class AdminMessageController extends AbstractController
     {
         $message= $repo_mess->find($id); /* Accède au message qui a l'ID choisi parmi la liste de tous les messages */
 
+        $ip = $request->getClientIp();
+
         $form = $this->createForm(MessageType::class, $message); /*Création du formulaire d'édition de message */
 
         $form->handleRequest($request);
@@ -28,6 +30,7 @@ class AdminMessageController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){ /* Validation du formulaire après soumission par l'utilisateur */
 
             $message->setDateCreation(new \DateTime()); /* Remplit le champ 'dateCreation' avec la date actuelle */
+            $message->setIp($ip);
             
             $manager->persist($message);
             $manager->flush();

@@ -170,5 +170,19 @@ table a{
 		margin-left:0px;
 	}
 
+	#primary-menu.style-5 > ul > li > a i{
+		font-size: 20px !important;
+	}
+
+	#primary-menu.style-5 > ul > li a{
+		font-size: 10px !important;
+		font-weight: bold;
+	}
+
+	#primary-menu ul li > a{
+		padding: 39px 5px;
+
+	}
+
 	
 }

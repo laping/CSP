@@ -49,8 +49,7 @@ class MessageController extends AbstractController
         }
 
         return $this->render('message/creer.html.twig',[ /* Renvoie vers une vue avec le formulaire créé en paramètre */
-            'form'=> $form->CreateView(),
-            'ip' => $ip
+            'form'=> $form->CreateView()
             
         ]);
     }

@@ -26,7 +26,7 @@
         {% endif %}
         <h3>{{message.titre}}</h3> 
         
-        <p>{{message.contenu|raw}}</p>
+        <p>{{message.contenu}}</p>
         <div>                  
             <p>Ecrit par <span style="font-weight:bold">
                 {% if message.auteur.roles[0]|default('') == 'ROLE_ADMIN' %}

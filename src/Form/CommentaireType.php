@@ -23,7 +23,8 @@ class CommentaireType extends ApplicationType
             ->add('signature', EntityType::class, [
                 // Choix de l'entité dans laquelle chercher
                 'class' => Personnel::class,
-            
+                'placeholder' => 'Sélectionnez votre nom',
+                'empty_data' => null,
                 'choice_label' => 'nom',
                 'query_builder' => function (PersonnelRepository $repo_perso) {
                     return $repo_perso->createQueryBuilder('perso')
