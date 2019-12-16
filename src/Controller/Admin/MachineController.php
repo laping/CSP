@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Machine;
 use App\Form\MachineType;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +16,7 @@ class MachineController extends AbstractController
      * @Route("/machine/creer", name="machine_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
         
         $machine = new Machine();
@@ -49,7 +49,7 @@ class MachineController extends AbstractController
      * @Route("/machine/{id}/editer", name="machine_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Machine $machine,Request $request, ObjectManager $manager){
+    public function editer(Machine $machine,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(MachineType::class, $machine);
 
@@ -78,7 +78,7 @@ class MachineController extends AbstractController
      * @Route("/machine/{id}/supprimer", name="machine_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Machine $machine, ObjectManager $manager){
+    public function supprimer(Machine $machine, EntityManagerInterface $manager){
 
         $manager->remove($machine);
         $manager->flush();

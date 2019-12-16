@@ -6,7 +6,7 @@ use App\Entity\Couleur;
 use App\Form\CouleurType;
 use App\Repository\CouleurRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,7 @@ class CouleurController extends AbstractController
      *  @route("/couleur/creer", name="couleur_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
 
         $couleur = new couleur();
@@ -61,7 +61,7 @@ class CouleurController extends AbstractController
      * @Route("/couleur/{id}/editer", name="couleur_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Couleur $couleur,Request $request, ObjectManager $manager){
+    public function editer(Couleur $couleur,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(CouleurType::class, $couleur);
 
@@ -90,7 +90,7 @@ class CouleurController extends AbstractController
      * @Route("/couleur/{id}/supprimer", name="couleur_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Couleur $couleur, ObjectManager $manager){
+    public function supprimer(Couleur $couleur, EntityManagerInterface $manager){
 
         $manager->remove($couleur);
         $manager->flush();

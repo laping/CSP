@@ -9,7 +9,7 @@ use App\Entity\PasswordEdition;
 use App\Form\PasswordEditionType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -51,7 +51,7 @@ class CompteController extends AbstractController
      * @Route("/compte/edition", name="compte_edition")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editionCompte(Request $request, ObjectManager $manager)
+    public function editionCompte(Request $request, EntityManagerInterface $manager)
     {
 
         $utilisateur = $this->getUser();
@@ -81,7 +81,7 @@ class CompteController extends AbstractController
      * @Route("/compte/password", name="compte_password")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editionPassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function editionPassword(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $passwordEdition = new PasswordEdition();
         $utilisateur= $this->getUser(); /* Récupération de l'utilisateur connecté */

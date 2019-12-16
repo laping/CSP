@@ -9,7 +9,7 @@ use App\Repository\MessageRepository;
 use App\Repository\CommentaireRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ class AdminCommunicationController extends AbstractController
      * @Route("/communication/message/{id}/archive", name="archiver_message")
      * @IsGranted("ROLE_ADMIN") 
      */
-    public function archiver($id, MessageRepository $repo_mess, ObjectManager $manager)
+    public function archiver($id, MessageRepository $repo_mess, EntityManagerInterface $manager)
     {
         $message= $repo_mess->find($id); /* Récupère un message spécifique (via l'Id) dans la table concernée */
 
@@ -41,7 +41,7 @@ class AdminCommunicationController extends AbstractController
      * @Route("/communication/message/{id}/desarchive", name="desarchiver_message")
      * @IsGranted("ROLE_ADMIN") 
      */
-    public function desarchiver($id, MessageRepository $repo_mess, ObjectManager $manager)
+    public function desarchiver($id, MessageRepository $repo_mess, EntityManagerInterface $manager)
     {
         $message= $repo_mess->find($id);
 
@@ -96,7 +96,7 @@ class AdminCommunicationController extends AbstractController
      * @Route("/archives/message/{id}", name="afficher_message_archives")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function afficherMessage($id, MessageRepository $repo_mess, CommentaireRepository $repo_comm, Request $request, ObjectManager $manager)
+    public function afficherMessage($id, MessageRepository $repo_mess, CommentaireRepository $repo_comm, Request $request, EntityManagerInterface $manager)
     {
         $message= $repo_mess->find($id);
         $commentaires= $repo_comm->findAll(); /* Récupère un message spécifique (via l'Id) dans la table concernée ainsi que les commentaires liés */

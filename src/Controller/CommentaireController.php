@@ -7,7 +7,7 @@ use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +18,7 @@ class CommentaireController extends AbstractController
      * @Route("/commentaire/{id}/editer", name="editer_commentaire")
      * @IsGranted("ROLE_USER")
      */
-    public function editer($id,CommentaireRepository $repo, Request $request, ObjectManager $manager)
+    public function editer($id,CommentaireRepository $repo, Request $request, EntityManagerInterface $manager)
     {
         $commentaire= $repo->find($id); /* Accède au message qui a l'ID choisi parmi la liste de tous les messages */
 
@@ -52,7 +52,7 @@ class CommentaireController extends AbstractController
      * @Route("/commentaire/{id}/supprimer", name="commentaire_supprimer")
      * @IsGranted("ROLE_USER")
      */
-    public function supprimer(Commentaire $commentaire, ObjectManager $manager){
+    public function supprimer(Commentaire $commentaire, EntityManagerInterface $manager){
 
         $manager->remove($commentaire);
         $manager->flush();

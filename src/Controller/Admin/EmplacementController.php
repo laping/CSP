@@ -6,7 +6,7 @@ use App\Entity\Emplacement;
 use App\Form\EmplacementType;
 use App\Repository\EmplacementRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,7 @@ class EmplacementController extends AbstractController
      * @Route("/emplacement/creer", name="emplacement_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
 
         $emplacement = new Emplacement();
@@ -61,7 +61,7 @@ class EmplacementController extends AbstractController
      * @Route("/emplacement/{id}/editer", name="emplacement_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Emplacement $emplacement,Request $request, ObjectManager $manager){
+    public function editer(Emplacement $emplacement,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(EmplacementType::class, $emplacement);
 
@@ -90,7 +90,7 @@ class EmplacementController extends AbstractController
      * @Route("/emplacement/{id}/supprimer", name="emplacement_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Emplacement $emplacement, ObjectManager $manager){
+    public function supprimer(Emplacement $emplacement, EntityManagerInterface $manager){
 
         $manager->remove($emplacement); /* Prépare la suppression de l'emplacement */
         $manager->flush(); /* Exécute les changements */

@@ -9,7 +9,7 @@ use App\Repository\MessageRepository;
 use App\Repository\CommentaireRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 // Include paginator interface
@@ -58,7 +58,7 @@ class CommunicationController extends AbstractController
      * @Route("/communication/message/{id}", name="afficher_message")
      * @IsGranted("ROLE_USER")
      */
-    public function afficherMessage($id, MessageRepository $repo_mess, CommentaireRepository $repo_comm, Request $request, ObjectManager $manager)
+    public function afficherMessage($id, MessageRepository $repo_mess, CommentaireRepository $repo_comm, Request $request, EntityManagerInterface $manager)
     {
         
         $message= $repo_mess->find($id);

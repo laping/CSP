@@ -10,7 +10,7 @@ use App\Entity\AdminPasswordEdition;
 use App\Form\AdminPasswordEditionType;
 use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +36,7 @@ class AdminCompteController extends AbstractController
      * @Route("/compte/inscription", name="compte_inscription")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $utilisateur = new Utilisateur();
 
@@ -68,7 +68,7 @@ class AdminCompteController extends AbstractController
      * @Route("/compte/{id}/supprimer", name="compte_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Utilisateur $utilisateur, ObjectManager $manager){
+    public function supprimer(Utilisateur $utilisateur, EntityManagerInterface $manager){
 
         $manager->remove($utilisateur);
         $manager->flush();
@@ -82,7 +82,7 @@ class AdminCompteController extends AbstractController
      * @Route("/compte/{id}/edition", options={"expose"=true}, name="admin_compte_edition")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editionCompte(Utilisateur $utilisateur,Request $request, ObjectManager $manager)
+    public function editionCompte(Utilisateur $utilisateur,Request $request, EntityManagerInterface $manager)
     {
 
         $form = $this->createForm(CompteType::class, $utilisateur);/* Création du formulaire d'édition */
@@ -110,7 +110,7 @@ class AdminCompteController extends AbstractController
      * @Route("/compte/{id}/password", name="admin_compte_password")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editionPassword(Utilisateur $utilisateur,Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function editionPassword(Utilisateur $utilisateur,Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $passwordEdition = new AdminPasswordEdition();
 

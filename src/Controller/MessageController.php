@@ -9,7 +9,7 @@ use App\Form\CommentaireType;
 use App\Repository\MessageRepository;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ class MessageController extends AbstractController
      * @Route("/message/creer", name="creer_message")
      * @IsGranted("ROLE_USER")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
         $message = new Message();
 
@@ -58,7 +58,7 @@ class MessageController extends AbstractController
      * @Route("/message/{id}/editer", name="editer_message")
      * @IsGranted("ROLE_USER")
      */
-    public function editer($id,MessageRepository $repo_mess, Request $request, ObjectManager $manager)
+    public function editer($id,MessageRepository $repo_mess, Request $request, EntityManagerInterface $manager)
     {
         $message= $repo_mess->find($id); /* Accède au message qui a l'ID choisi parmi la liste de tous les messages */
 
@@ -98,7 +98,7 @@ class MessageController extends AbstractController
      * @Route("/message/{id}/supprimer", name="message_supprimer")
      * @IsGranted("ROLE_USER")
      */
-    public function supprimer(Message $message, ObjectManager $manager){
+    public function supprimer(Message $message, EntityManagerInterface $manager){
 
         $manager->remove($message);
         $manager->flush();

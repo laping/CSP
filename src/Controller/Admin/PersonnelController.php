@@ -6,7 +6,7 @@ use App\Entity\Personnel;
 use App\Form\PersonnelType;
 use App\Repository\PersonnelRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +31,7 @@ class PersonnelController extends AbstractController
      * @Route("/personnel/inscription", name="personnel_inscription")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function inscription(Request $request, ObjectManager $manager)
+    public function inscription(Request $request, EntityManagerInterface $manager)
     {
         $personnel = new Personnel();
 
@@ -61,7 +61,7 @@ class PersonnelController extends AbstractController
      * @Route("/personnel/{id}/supprimer", name="personnel_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Personnel $personnel, ObjectManager $manager){
+    public function supprimer(Personnel $personnel, EntityManagerInterface $manager){
 
         $manager->remove($personnel);
         $manager->flush();
@@ -75,7 +75,7 @@ class PersonnelController extends AbstractController
      * @Route("/personnel/{id}/edition", name="personnel_edition")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editionCompte(Personnel $personnel,Request $request, ObjectManager $manager)
+    public function editionCompte(Personnel $personnel,Request $request, EntityManagerInterface $manager)
     {
 
         $form = $this->createForm(PersonnelType::class, $personnel);/* Création du formulaire d'édition */

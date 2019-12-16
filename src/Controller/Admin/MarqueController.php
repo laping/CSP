@@ -6,7 +6,7 @@ use App\Entity\Marque;
 use App\Form\MarqueType;
 use App\Repository\MarqueRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,7 @@ class MarqueController extends AbstractController
      * @Route("/marque/creer", name="marque_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
 
         $marque = new Marque();
@@ -61,7 +61,7 @@ class MarqueController extends AbstractController
      * @Route("/marque/{id}/editer", name="marque_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Marque $marque,Request $request, ObjectManager $manager){
+    public function editer(Marque $marque,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(MarqueType::class, $marque);
 
@@ -90,7 +90,7 @@ class MarqueController extends AbstractController
      * @Route("/marque/{id}/supprimer", name="marque_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Marque $marque, ObjectManager $manager){
+    public function supprimer(Marque $marque, EntityManagerInterface $manager){
 
         $manager->remove($marque);
         $manager->flush();

@@ -6,7 +6,7 @@ use App\Entity\Message;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ class AdminMessageController extends AbstractController
      * @Route("/admin/message/{id}/editer", name="admin_editer_message")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer($id,MessageRepository $repo_mess, Request $request, ObjectManager $manager)
+    public function editer($id,MessageRepository $repo_mess, Request $request, EntityManagerInterface $manager)
     {
         $message= $repo_mess->find($id); /* Accède au message qui a l'ID choisi parmi la liste de tous les messages */
 
@@ -53,7 +53,7 @@ class AdminMessageController extends AbstractController
      * @Route("/admin/message/{id}/supprimer", name="admin_message_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Message $message, ObjectManager $manager){
+    public function supprimer(Message $message, EntityManagerInterface $manager){
 
         $manager->remove($message);
         $manager->flush();

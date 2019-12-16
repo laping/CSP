@@ -6,7 +6,7 @@ use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +30,7 @@ class CategorieController extends AbstractController
      * @Route("/categorie/creer", name="categorie_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
 
         $categorie = new categorie();
@@ -62,7 +62,7 @@ class CategorieController extends AbstractController
      * @Route("/categorie/{id}/editer", name="categorie_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Categorie $categorie,Request $request, ObjectManager $manager){
+    public function editer(Categorie $categorie,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(CategorieType::class, $categorie);
 
@@ -91,7 +91,7 @@ class CategorieController extends AbstractController
      * @Route("/categorie/{id}/supprimer", name="categorie_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Categorie $categorie, ObjectManager $manager){
+    public function supprimer(Categorie $categorie, EntityManagerInterface $manager){
 
         $manager->remove($categorie);
         $manager->flush();

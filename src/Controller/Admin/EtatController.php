@@ -7,7 +7,7 @@ use App\Form\EtatType;
 use App\Repository\EtatRepository;
 use App\Repository\CouleurRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +30,7 @@ class EtatController extends AbstractController
      * @Route("/etat/creer", name="etat_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
         
 
@@ -64,7 +64,7 @@ class EtatController extends AbstractController
      * @Route("/etat/{id}/editer", name="etat_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Etat $etat,Request $request, ObjectManager $manager){
+    public function editer(Etat $etat,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(EtatType::class, $etat);
 
@@ -93,7 +93,7 @@ class EtatController extends AbstractController
      * @Route("/etat/{id}/supprimer", name="etat_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Etat $etat, ObjectManager $manager){
+    public function supprimer(Etat $etat, EntityManagerInterface $manager){
 
         $manager->remove($etat);
         $manager->flush();

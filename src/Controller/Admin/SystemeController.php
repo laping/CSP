@@ -6,7 +6,7 @@ use App\Entity\Systeme;
 use App\Form\SystemeType;
 use App\Repository\SystemeRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,7 @@ class SystemeController extends AbstractController
      * @Route("/systeme/creer", name="systeme_creer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function creer(Request $request, ObjectManager $manager)
+    public function creer(Request $request, EntityManagerInterface $manager)
     {
 
         $systeme = new Systeme();
@@ -61,7 +61,7 @@ class SystemeController extends AbstractController
      * @Route("/systeme/{id}/editer", name="systeme_editer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editer(Systeme $systeme,Request $request, ObjectManager $manager){
+    public function editer(Systeme $systeme,Request $request, EntityManagerInterface $manager){
 
         $form = $this-> createForm(SystemeType::class, $systeme);
 
@@ -90,7 +90,7 @@ class SystemeController extends AbstractController
      * @Route("/systeme/{id}/supprimer", name="systeme_supprimer")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function supprimer(Systeme $systeme, ObjectManager $manager){
+    public function supprimer(Systeme $systeme, EntityManagerInterface $manager){
 
         $manager->remove($systeme);
         $manager->flush();
